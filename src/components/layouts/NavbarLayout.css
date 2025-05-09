@@ -1,0 +1,73 @@
+.navbar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #001529;
+  padding: 0 1rem;
+  height: 4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-toggle {
+  display: none;
+  color: white;
+  font-size: 1.25rem;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 3rem;
+}
+
+.navbar-menu {
+  background: transparent;
+  border-bottom: none;
+  white-space: nowrap;
+}
+
+.profile-avatar {
+  cursor: pointer;
+}
+
+.navbar-menu .ant-menu-item {
+  margin: 0 16px;
+  font-size: 1rem;
+}
+
+.navbar-content {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: calc(100h - 64px);
+}
+
+.navbar-menu .ant-menu-item-selected {
+  background-color: transparent !important;
+  border-bottom: 3px solid #1890ff;
+  color: #40a9ff !important;
+  font-weight: 600;
+}
+
+.navbar-menu .ant-menu-item:hover {
+  color: #1890ff !important;
+  background-color: rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 400px) {
+  .menu-toggle {
+    display: inline-block;
+  }
+
+  .navbar-menu {
+    display: none !important;
+  }
+}

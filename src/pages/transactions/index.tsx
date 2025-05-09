@@ -1,13 +1,13 @@
 import "./index.css"
 
-const DashboardPage = () => {
+const TransactionsPage = () => {
   return (
     <div className="page-container">
       <div className="header-container">
-        <h1 className="page_hd">Dashboard</h1>
+        <h1 className="page_hd">Transactions</h1>
       </div>
     </div>
   );
 };
 
-export default DashboardPage;
+export default TransactionsPage;

@@ -11,7 +11,7 @@ export const UserLogin = async (username: string, password: string) => {
     }
   );
 
-  const token = response.data.token;
-  Cookies.set("token", token, { expires: 1 });
+  Cookies.set("token", response.data.token, { expires: 1 });
+  Cookies.set("username", response.data.data.name, { expires: 1 });
   return response;
 };

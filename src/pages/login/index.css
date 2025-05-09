@@ -2,17 +2,21 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #f0f2f5;
 }
 
 .login-container {
   height: 100vh;
   display: flex;
+  background-image: url("./../../assets/login-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: "Arial", sans-serif;
   box-sizing: border-box;
+  overflow: hidden;
   padding: 10px;
 }
 

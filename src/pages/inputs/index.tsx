@@ -1,13 +1,29 @@
-import "./index.css"
+import { Card } from "antd";
+import "./index.css";
+import { useState } from "react";
+import DateSelector from "../../components/DateSelector";
+import BudgetComponent from "../../components/Inputs/Budget";
 
 const InputsPage = () => {
-    return (
-        <div className="page-container">
-          <div className="header-container">
-            <h1 className="page_hd">Inputs</h1>
-          </div>
-        </div>
-    )
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  return (
+    <div className="page-container">
+      <div className="header-container">
+        <h1 className="page_hd">Budget Overview</h1>
+      </div>
+      <Card className="inner-container">
+        <DateSelector
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+        />
+        <BudgetComponent
+          month={currentDate.getMonth()}
+          year={currentDate.getFullYear()}
+        />
+      </Card>
+    </div>
+  );
 };
 
-export default InputsPage
+export default InputsPage;

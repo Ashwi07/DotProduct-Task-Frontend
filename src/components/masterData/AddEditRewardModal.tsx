@@ -1,4 +1,4 @@
-import { Input, InputNumber, Modal } from "antd";
+import { Input, Modal } from "antd";
 import { useState } from "react";
 import "./AddEditSingleInputModal.css";
 

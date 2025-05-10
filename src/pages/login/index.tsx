@@ -20,11 +20,18 @@ const LoginPage = () => {
         description: `Welcome ${response.data.data.name}`,
       });
       navigate("/dashboard");
-    } catch (err) {
-      notification.error({
-        message: "Login Failed",
-        description: "Incorrect Username or Password",
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Login Failed",
+          description: "Incorrect Username or Password",
+        });
+      }
     }
   };
 
@@ -33,20 +40,24 @@ const LoginPage = () => {
       <div className="login-card">
         <Form name="login" onFinish={handleOnFinish} className="login-form">
           <h2 className="login-title">Login</h2>
-          <FloatingLableInput
-            name="username"
-            rules={[
-              { required: true, message: "Username is required" },
-              { type: "email", message: "Please enter a valid email" },
-            ]}
-            label="Username"
-          />
+          <div className="input-container">
+            <FloatingLableInput
+              name="username"
+              rules={[
+                { required: true, message: "Username is required" },
+                { type: "email", message: "Please enter a valid email" },
+              ]}
+              label="Username"
+            />
+          </div>
+          <div className="input-container">
           <FloatingLableInput
             name="password"
             rules={[{ required: true, message: "Password is required" }]}
             label="Password"
             isPassword={true}
           />
+          </div>
           <Form.Item>
             <Button type="primary" htmlType="submit" className="login-button">
               Log In

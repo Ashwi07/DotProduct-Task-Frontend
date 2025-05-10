@@ -26,7 +26,7 @@ const NavbarLayout = () => {
       key: "/dashboard",
     },
     {
-      label: "Inputs",
+      label: "Budget",
       key: "/inputs",
     },
     {

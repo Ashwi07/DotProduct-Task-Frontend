@@ -62,20 +62,27 @@ const GlobalSettingsPage = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    try {
-      (async () => {
+    (async () => {
+      try {
         const response = await GetAllMasterData();
         setExpenseData(response.data.data.expenseTypes);
         setIncomeData(response.data.data.incomeTypes);
         setSavingsData(response.data.data.savingsTypes);
         setRewardData(response.data.data.rewards);
-      })();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: "Failed to fetch data",
-      });
-    }
+      } catch (err: any) {
+        if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+          notification.error({
+            message: "Error",
+            description: err?.response?.data?.userMessage,
+          });
+        } else {
+          notification.error({
+            message: "Error",
+            description: "Failed to fetch data",
+          });
+        }
+      }
+    })();
   }, [reload]);
 
   const handleCancelExpenseModal = () => {
@@ -102,11 +109,18 @@ const GlobalSettingsPage = () => {
 
       setReload((current) => !current);
       handleCancelExpenseModal();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: `Failed to ${openExpenseModal} Expense data`,
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Error",
+          description: `Failed to ${openExpenseModal} Expense data`,
+        });
+      }
     }
   };
 
@@ -133,11 +147,18 @@ const GlobalSettingsPage = () => {
       await DeleteMasterExpenseType(selectedItem);
       setReload((current) => !current);
       handleCancelDeleteExpenseModal();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: `Failed to Delete Expense data`,
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Error",
+          description: `Failed to Delete Expense data`,
+        });
+      }
     }
   };
 
@@ -165,11 +186,18 @@ const GlobalSettingsPage = () => {
 
       setReload((current) => !current);
       handleCancelIncomeModal();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: `Failed to ${openIncomeModal} Income data`,
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Error",
+          description: `Failed to ${openIncomeModal} Income data`,
+        });
+      }
     }
   };
 
@@ -196,11 +224,18 @@ const GlobalSettingsPage = () => {
       await DeleteMasterIncomeType(selectedItem);
       setReload((current) => !current);
       handleCancelDeleteIncomeModal();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: `Failed to Delete Income data`,
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Error",
+          description: `Failed to Delete Income data`,
+        });
+      }
     }
   };
 
@@ -228,11 +263,18 @@ const GlobalSettingsPage = () => {
 
       setReload((current) => !current);
       handleCancelSavingsModal();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: `Failed to ${openSavingsModal} Savings data`,
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Error",
+          description: `Failed to ${openSavingsModal} Savings data`,
+        });
+      }
     }
   };
 
@@ -259,11 +301,18 @@ const GlobalSettingsPage = () => {
       await DeleteMasterSavingsType(selectedItem);
       setReload((current) => !current);
       handleCancelDeleteSavingsModal();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: `Failed to Delete Savings data`,
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Error",
+          description: `Failed to Delete Savings data`,
+        });
+      }
     }
   };
 
@@ -300,11 +349,18 @@ const GlobalSettingsPage = () => {
 
       setReload((current) => !current);
       handleCancelRewardModal();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: `Failed to ${openRewardModal} Reward data`,
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Error",
+          description: `Failed to ${openRewardModal} Reward data`,
+        });
+      }
     }
   };
 
@@ -332,11 +388,18 @@ const GlobalSettingsPage = () => {
       await DeleteMasterReward(selectedItem);
       setReload((current) => !current);
       handleCancelDeleteRewardModal();
-    } catch (err) {
-      notification.error({
-        message: "Error",
-        description: `Failed to Delete Reward data`,
-      });
+    } catch (err: any) {
+      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
+        notification.error({
+          message: "Error",
+          description: err?.response?.data?.userMessage,
+        });
+      } else {
+        notification.error({
+          message: "Error",
+          description: `Failed to Delete Reward data`,
+        });
+      }
     }
   };
 

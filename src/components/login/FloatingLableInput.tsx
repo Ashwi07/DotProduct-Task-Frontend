@@ -15,7 +15,8 @@ const FloatingLableInput: React.FC<FloatingLableInputProps> = ({
   name,
 }) => {
   const [focused, setFocused] = useState(false);
-  const [value, setValue] = useState("");
+  const form = Form.useFormInstance();
+  const value = Form.useWatch(name, form);
 
   return (
     <Form.Item name={name} rules={rules} className="form-item-float">
@@ -24,7 +25,6 @@ const FloatingLableInput: React.FC<FloatingLableInputProps> = ({
           <Input.Password
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            onChange={(e) => setValue(e.target.value)}
             value={value}
             style={{ height: "3rem" }}
           />
@@ -32,7 +32,6 @@ const FloatingLableInput: React.FC<FloatingLableInputProps> = ({
           <Input
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            onChange={(e) => setValue(e.target.value)}
             value={value}
             style={{ height: "3rem" }}
           />

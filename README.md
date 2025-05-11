@@ -6,8 +6,9 @@ Each sub category configure should be unique per category.
 User can add their budget plan for this month in the budgets tab. Budgets are based on the expense categories. Each category can have one value per month.
 Each budget log has budget category, amount and description where description is optional.
 User can add the transactions done in this month which are categorised by Salary, Expense and Savings each having their own sub categories as configured in global settings.
+Uniqueness check for name of gloabl settings and budget is only considered for non soft deleted data
 Each transaction log will have transaction name, category, sub category, amount and transaction date. Description is optional.
-Their is a search box that search values case insensitie in transaction name and transaction description.
+Their is a search box that search values case insensitive in transaction name and transaction description.
 Transactions will also have a month selector at the top to display current months transaction. This can be changed as needed.
 Transactions table have an option to sort by transaction date or transaction amount.
 Only one sort order is applied at a time.
@@ -19,6 +20,7 @@ Dashboard also had D3 graphs for visual insights
 After login is successful, token is stored in the cookies and used in all other api calls.
 If there is no token found then page re-routes to login page
 If an unknown url is searched then it shows Not found page
+Each month can have its own data and can be accessed by the date picker provided at the top of each page excluding globaal settings
 
 LLMs were used to help with the D3 graph creation and Floating Label input
 LLMs were also used for image generation for backgrouns and icons

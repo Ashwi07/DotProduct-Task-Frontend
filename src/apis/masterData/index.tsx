@@ -10,3 +10,12 @@ export const GetAllMasterData = async () => {
     },
   });
 };
+
+export const GetSubTypes = async () => {
+  const token = Cookies.get("token");
+  return await axios.get(`${config.apiUrl}/api/common/get-sub-types`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

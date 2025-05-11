@@ -1,13 +1,13 @@
-.budget-container {
+.transaction-container {
   padding: 1rem;
   background-color: #ffffff;
   border-radius: 0.75rem;
   overflow-x: auto;
 }
 
-.budget-header {
+.transaction-header {
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -24,7 +24,7 @@
   overflow-x: auto;
 }
 
-.budget-table .ant-table-thead > tr > th {
+.transaction-table .ant-table-thead > tr > th {
   background-color: #f9f9f9;
   font-weight: 400;
   text-transform: uppercase;
@@ -33,7 +33,7 @@
   letter-spacing: 0.3px;
 }
 
-.budget-table .ant-table-tbody > tr:hover > td {
+.transaction-table .ant-table-tbody > tr:hover > td {
   background-color: #fafafa;
 }
 
@@ -42,8 +42,16 @@
   color: #595959;
 }
 
+.transaction-search-input {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+  height: 40px;
+  font-size: 1rem;
+}
+
 @media (max-width: 768px) {
-  .budget-header {
+  .transaction-header {
     flex-direction: column;
     align-items: stretch;
   }
@@ -58,7 +66,7 @@
     font-size: 0.75rem;
   }
 
-  .budget-container {
+  .transaction-container {
     padding: 0.75rem;
   }
 }

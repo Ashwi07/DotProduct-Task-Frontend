@@ -102,6 +102,7 @@ const Budget: React.FC<IBudgetParams> = ({ month, year }) => {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      render: (text: string) => (text ? text : "-"),
     },
     {
       title: "Amount",
@@ -159,6 +160,7 @@ const Budget: React.FC<IBudgetParams> = ({ month, year }) => {
       <Table
         columns={columns}
         dataSource={data}
+        bordered
         rowClassName="budget-row"
         className="budget-table"
         scroll={{ x: true }}

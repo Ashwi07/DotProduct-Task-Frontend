@@ -29,24 +29,8 @@ page-container {
   border-radius: 12px;
 }
 
-.tab-card {
-  border-radius: 0.5rem;
-  margin-top: 0.75rem;
-}
-
-.ant-tabs-tab {
-  font-size: 1.25rem;
-  font-weight: 500;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  letter-spacing: 0.5px;
-}
-
 @media (max-width: 768px) {
   .inner-container {
-    padding: 0.75rem;
-  }
-
-  .tab-card {
     padding: 0.75rem;
   }
 }

@@ -34,7 +34,7 @@ export const GetBudgetCategoriesData = async (month: number, year: number) => {
 
 export const CreateBudget = async (payload: {
   category: string;
-  description: string;
+  description?: string;
   amount: number;
   month: number;
   year: number;
@@ -50,9 +50,9 @@ export const CreateBudget = async (payload: {
 export const EditBudget = async (
   id: string,
   payload: {
-    category: string;
-    description: string;
-    amount: number;
+    category?: string;
+    description?: string;
+    amount?: number;
   }
 ) => {
   const token = Cookies.get("token");

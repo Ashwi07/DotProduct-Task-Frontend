@@ -48,12 +48,20 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
         } else {
           notification.error({
             message: "Error",
-            description: "Failed to add budget",
+            description: "Failed to fetch data",
           });
         }
       }
     })();
   }, [reload]);
+
+  useEffect(() => {
+    if (open) {
+      form.setFieldsValue(
+        initialValues ?? { category: undefined, amount: "", description: "" }
+      );
+    }
+  }, [open, initialValues, form]);
 
   const handleSubmitClick = () => {
     form.validateFields().then(async (values) => {
@@ -93,7 +101,7 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
         } else {
           notification.error({
             message: "Error",
-            description: `Failed to ${values?._id ? "create" : "edit"} budget`,
+            description: `Failed to ${values?._id ? "edit" : "create"} budget`,
           });
         }
       }
@@ -113,10 +121,15 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
       onOk={handleSubmitClick}
       onCancel={hanldeModalClose}
     >
-      <Form form={form} layout="vertical" initialValues={initialValues ?? {}}>
+      <Form
+        form={form}
+        layout="vertical"
+        initialValues={
+          initialValues ?? { category: undefined, amount: "", description: "" }
+        }
+      >
         <div className="budget-input-row">
           <Form.Item
-            label="Category Name"
             name="category"
             rules={[{ required: true, message: "Please select a category" }]}
             className="form-item-select"
@@ -139,11 +152,7 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
           </Form.Item>
         </div>
         <div className="budget-input-row">
-          <FloatingLableInput
-            name="description"
-            rules={[{ required: true, message: "Description is required" }]}
-            label="Description"
-          />
+          <FloatingLableInput name="description" label="Description" />
         </div>
         <div className="budget-input-row">
           <FloatingLableInput

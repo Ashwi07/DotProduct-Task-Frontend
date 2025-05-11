@@ -2,6 +2,7 @@ import axios from "axios";
 import config from "../../config/config";
 import Cookies from "js-cookie";
 
+// Get transaction list
 export const GetTransactionData = async (
   month: number,
   year: number,
@@ -23,6 +24,7 @@ export const GetTransactionData = async (
   );
 };
 
+// Add transaction
 export const CreateTransaction = async (payload: {
   name: string;
   description?: string;
@@ -39,6 +41,7 @@ export const CreateTransaction = async (payload: {
   });
 };
 
+// Edit transaction
 export const EditTransaction = async (
   id: string,
   payload: {
@@ -58,6 +61,7 @@ export const EditTransaction = async (
   });
 };
 
+// Delete transaction
 export const DeleteTransaction = async (id: string) => {
   const token = Cookies.get("token");
   return await axios.delete(`${config.apiUrl}/api/transaction/${id}`, {

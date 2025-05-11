@@ -25,6 +25,7 @@ const AddEditRewardModal: React.FC<AddEditSingeInputModalProps> = ({
 }) => {
   const [focused, setFocused] = useState("");
 
+  // validate whole number values
   const handleNumChange = (value: string) => {
     const num = parseInt(value.replace(/[^0-9]/g, ""));
     setAmount(num ? num : 0);
@@ -32,12 +33,13 @@ const AddEditRewardModal: React.FC<AddEditSingeInputModalProps> = ({
 
   return (
     <Modal title={title} open={open} onOk={onOk} onCancel={onCancel}>
+      {/* Reward name */}
       <div className="input-box">
         <div className="float-label-wrapper">
           <Input
-            onFocus={() => setFocused("name")}
+            onFocus={() => setFocused("name")} // label control
             onBlur={() => setFocused("")}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setValue(e.target.value)} // value control
             value={value}
             style={{ height: "3rem" }}
           />
@@ -46,6 +48,8 @@ const AddEditRewardModal: React.FC<AddEditSingeInputModalProps> = ({
           </label>
         </div>
       </div>
+
+      {/* reward amount */}
       <div className="input-box-2">
         <div className="float-label-wrapper">
           <Input
@@ -55,6 +59,8 @@ const AddEditRewardModal: React.FC<AddEditSingeInputModalProps> = ({
             value={amount}
             style={{ height: "3rem", width: "100%" }}
           />
+
+          {/* floating label control and display */}
           <label className={focused === "amount" || value ? "active" : ""}>
             Reward Amount
           </label>

@@ -37,6 +37,7 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
   useEffect(() => {
     (async () => {
       try {
+        // get categories that are not used in the current budget
         const response = await GetBudgetCategoriesData(month, year);
         setCategories(response.data.data);
       } catch (err: any) {
@@ -53,8 +54,9 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
         }
       }
     })();
-  }, [reload]);
+  }, [reload]); // everytime a budget is added or edit refresh unused categories
 
+  // set initial values if edit option is selected
   useEffect(() => {
     if (open) {
       form.setFieldsValue(
@@ -64,7 +66,9 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
   }, [open, initialValues, form]);
 
   const handleSubmitClick = () => {
+    // validate before proceeding
     form.validateFields().then(async (values) => {
+      // check if amount is a number
       if (isNaN(parseInt(values.amount)) || !/^\d+$/.test(values.amount)) {
         notification.error({
           message: "Error",
@@ -75,6 +79,7 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
       }
 
       try {
+        // if edit option is clicked then edit api is called otherwise create api is called
         if (initialValues?._id) {
           await EditBudget(initialValues._id, {
             category: values.category,
@@ -90,6 +95,8 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
             year: year,
           });
         }
+
+        // reload page to get latest values and close modal
         setReload((current) => !current);
         hanldeModalClose();
       } catch (err: any) {
@@ -108,6 +115,7 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
     });
   };
 
+  // on close unset values
   const hanldeModalClose = () => {
     form.resetFields();
     onCancel();
@@ -128,6 +136,7 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
           initialValues ?? { category: undefined, amount: "", description: "" }
         }
       >
+        {/* Category input */}
         <div className="budget-input-row">
           <Form.Item
             name="category"
@@ -140,6 +149,8 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
                   {item.name}
                 </Option>
               ))}
+
+              {/* If edit is selected then add current value to options (as it is a used value it wont come from api) */}
               {initialValues?._id && (
                 <Option
                   key={initialValues.category}
@@ -151,9 +162,13 @@ const AddEditBudgetModal: React.FC<AddEditBudgetModalProps> = ({
             </Select>
           </Form.Item>
         </div>
+
+        {/* Description(optional) input */}
         <div className="budget-input-row">
           <FloatingLableInput name="description" label="Description" />
         </div>
+
+        {/* Amount input */}
         <div className="budget-input-row">
           <FloatingLableInput
             name="amount"

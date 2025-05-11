@@ -55,7 +55,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
           currentPage,
           searchTerm,
           filterQuery
-        );
+        ); // get specfied month's data as per the filters applied
         setData(response.data.data);
         setTotalSize(response.data.total);
       } catch (err: any) {
@@ -72,7 +72,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
         }
       }
     })();
-  }, [reload, sort, currentPage, searchTerm, filterQuery, month, year]);
+  }, [reload, sort, currentPage, searchTerm, filterQuery, month, year]); // refresh values as the parameters change
 
   useEffect(() => {
     (async () => {
@@ -83,7 +83,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
           response.data.data[item].map((element: { name: string }) =>
             subTypeSet.add(element.name)
           );
-        });
+        }); /* get all unique sub categories regardless of their parent category into a single array */
         setSubTypeFilterList(Array.from(subTypeSet));
       } catch (err: any) {
         if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
@@ -101,6 +101,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
     })();
   }, []);
 
+  // wait 500ms before calling the actual api
   useEffect(() => {
     const handler = setTimeout(() => {
       setSearchTerm(searchInput);
@@ -120,6 +121,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
     setOpenDeleteModal(true);
   };
 
+  // handle sort and filter changes
   const handleTableChange = (pagination: any, filters: any, sorter: any) => {
     if (sorter?.order) {
       setSort(`{"${sorter.field}": "${sorter.order}"}`);
@@ -127,6 +129,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
       setSort("");
     }
 
+    // if filters have changed then set page to 1 otherwise keep current page
     const prevFilters = prevFiltersRef.current;
     const currentFilters = filters;
 
@@ -139,6 +142,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
       setCurrentPage(pagination.current);
     }
 
+    // apply current filters
     setCategoryFilters(filters.category);
     setSubTypeFilters(filters.subType);
     setFilterQuery(
@@ -177,6 +181,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
     setOpenDeleteModal(false);
   };
 
+  // table configuration
   const columns = [
     {
       title: "Name",
@@ -189,7 +194,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
       dataIndex: "description",
       key: "description",
       ellipses: true,
-      responsie: ["md"],
+      responsie: ["md"], // responsive description column
       render: (text: string) => (text ? text : "-"),
     },
     {
@@ -200,23 +205,23 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
         { text: "Savings", value: "Savings" },
         { text: "Income", value: "Income" },
         { text: "Expense", value: "Expense" },
-      ],
+      ], // filter values
       filteredValue: categoryFilters,
-      onFilter: () => true,
+      onFilter: () => true, // enable filter option
     },
     {
       title: "Sub Category",
       dataIndex: "subType",
       key: "subType",
-      filters: subTypeFilterList.map((item) => ({ text: item, value: item })),
+      filters: subTypeFilterList.map((item) => ({ text: item, value: item })), // custom filter values
       filteredValue: subTypeFilters,
-      onFilter: () => true,
+      onFilter: () => true, // enable filter option
     },
     {
       title: "Transaction Date",
       dataIndex: "transactionDate",
       key: "transactionDate",
-      sorter: true,
+      sorter: true, // enable sorting
       render: (value: Date) => moment(value).format("YYYY-MM-DD"),
     },
     {
@@ -224,7 +229,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
       dataIndex: "amount",
       key: "amount",
       align: "right" as const,
-      sorter: true,
+      sorter: true, // enable sorting
     },
     {
       title: "",
@@ -232,6 +237,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
       width: 50,
       align: "center" as const,
       render: (_: any, record: ITransactionItem) => {
+        // dropdown option for edit and delete
         const actionsMenu: MenuProps["items"] = [
           {
             key: "edit",
@@ -249,6 +255,8 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
 
         return (
           <Dropdown menu={{ items: actionsMenu }} trigger={["click"]}>
+            {" "}
+            {/* Dropdown menu button */}
             <Button
               shape="circle"
               icon={<SettingOutlined />}
@@ -263,6 +271,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
 
   return (
     <div className="transaction-container">
+      {/* Seach box */}
       <div className="transaction-header">
         <Input.Search
           placeholder="Search Transactions"
@@ -271,6 +280,8 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
           allowClear
           className="transaction-search-input"
         />
+
+        {/* Add transaction */}
         <Button
           type="primary"
           icon={<PlusOutlined />}
@@ -279,6 +290,8 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
           Add Transaction
         </Button>
       </div>
+
+      {/* transaction table */}
       <Table
         columns={columns}
         dataSource={data}
@@ -298,6 +311,8 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
         onChange={handleTableChange}
         rowKey="_id"
       />
+
+      {/* Add/Edit transaction modal */}
       <AddEditTransactionModal
         open={Boolean(openTransactionModal)}
         title={
@@ -310,6 +325,8 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
         reload={reload}
         initialValues={selectedRecord}
       />
+
+      {/* Delete transaction modal */}
       <DeleteModal
         title="Delete Transaction"
         description={`Are you sure you want to delete transaction "${selectedRecord?.name}"?`}

@@ -1,54 +1,59 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The project aims to help with the daily budget for a user.
+The user can Configure the Expense, Income and Savings categories as needed, based on these categories graphs will be created.
+Each sub category configure should be unique per category.
+User can add their budget plan for this month in the budgets tab. Budgets are based on the expense categories. Each category can have one value per month.
+Each budget log has budget category, amount and description where description is optional.
+User can add the transactions done in this month which are categorised by Salary, Expense and Savings each having their own sub categories as configured in global settings.
+Each transaction log will have transaction name, category, sub category, amount and transaction date. Description is optional.
+Their is a search box that search values case insensitie in transaction name and transaction description.
+Transactions will also have a month selector at the top to display current months transaction. This can be changed as needed.
+Transactions table have an option to sort by transaction date or transaction amount.
+Only one sort order is applied at a time.
+If no sort order is selected then it is displayed in the order of creation (latest first)
+Pagination is implemented with a limit of 10 items per page.
+The transaction table has an option to filter by category and sub categories. Multiple values can be selected for each type and all field filters are considered.
+After login is successful, token is stored in the cookies and used in all other api calls.
+If there is no token found then page re-routes to login page
+If an unknown url is searched then it shows Not found page
 
-Currently, two official plugins are available:
+Folder Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- src
+  - apis // all apis calls are written here
+    - inputs
+    - masterData
+    - transactions
+  - assets // custom images used
+  - components // all sub components used in the main page
+    - inputs
+    - layouts
+    - login
+    - masterData
+    - route
+    - transactions
+  - config // all the configuration files used
+  - dtos // contains types and interfaces used
+  - pages // main pages
+    - dashboard
+    - globalSettings
+    - inputs
+    - login
+    - not-found
+    - transactions
+  - routes // all the route definitions
+  - utils // contains helper functions
 
-## Expanding the ESLint configuration
+External Packages Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ESlint
+- js-cookie // for cookie management
+- moment // for date and time management
+- axios // for api calls
+- antd // for most UI
+- mui // for some UI
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+ENV variables needed
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- VITE_API_URL

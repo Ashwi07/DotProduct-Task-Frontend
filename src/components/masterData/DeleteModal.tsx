@@ -16,6 +16,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   onOk,
   onCancel,
 }) => {
+  // Delete confirmation modal
   return (
     <Modal
       title={title}

@@ -2,6 +2,7 @@ import axios from "axios";
 import config from "../../config/config";
 import Cookies from "js-cookie";
 
+// Add Reward
 export const CreateMasterReward = async (name: string, amount: number) => {
   const token = Cookies.get("token");
   return await axios.post(
@@ -18,6 +19,7 @@ export const CreateMasterReward = async (name: string, amount: number) => {
   );
 };
 
+// Edit Reward
 export const EditMasterReward = async (
   id: string,
   name: string,
@@ -38,6 +40,7 @@ export const EditMasterReward = async (
   );
 };
 
+// Delete Reward
 export const DeleteMasterReward = async (id: string) => {
   const token = Cookies.get("token");
   return await axios.delete(`${config.apiUrl}/api/master-reward/${id}`, {

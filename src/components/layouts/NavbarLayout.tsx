@@ -20,10 +20,11 @@ const NavbarLayout = () => {
   const { Header, Content } = Layout;
   const [drawerVisible, setDrawerVisible] = useState(false);
 
+  // Navbar options
   const menuItems = [
     {
-      label: "Dashboard",
-      key: "/dashboard",
+      label: "Dashboard", // option label
+      key: "/dashboard", // url to navigate
     },
     {
       label: "Budget",
@@ -39,6 +40,7 @@ const NavbarLayout = () => {
     },
   ];
 
+  // User menu to logout
   const userProfileMenu: MenuProps["items"] = [
     {
       key: "1",
@@ -48,12 +50,14 @@ const NavbarLayout = () => {
     },
   ];
 
+  // remove tokens and go to login page
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("username");
     navigate("/");
   };
 
+  // for movile responsive navbar menu
   const handleMenuClick = ({ key }: { key: string }) => {
     navigate(key);
     setDrawerVisible(false);
@@ -62,6 +66,7 @@ const NavbarLayout = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header className="navbar-header">
+        {/* mobile menu button */}
         <div className="navbar-left">
           <Button
             className="menu-toggle"
@@ -70,6 +75,8 @@ const NavbarLayout = () => {
             type="text"
           />
         </div>
+
+        {/* Nav bar */}
         <div className="navbar-right">
           <Menu
             theme="dark"
@@ -79,7 +86,10 @@ const NavbarLayout = () => {
             onClick={handleMenuClick}
             className="navbar-menu"
           />
+
+          {/* User profile menu */}
           <Dropdown menu={{ items: userProfileMenu }} trigger={["click"]}>
+            {/* First letter of user made into profile picture */}
             <Avatar
               className="profile-avatar"
               style={{ backgroundColor: "#87d068" }}
@@ -90,6 +100,7 @@ const NavbarLayout = () => {
         </div>
       </Header>
 
+      {/* mobile nav bar menu */}
       <Drawer
         title="Menu"
         placement="left"
@@ -104,6 +115,8 @@ const NavbarLayout = () => {
           onClick={handleMenuClick}
         />
       </Drawer>
+
+      {/* Children components go here */}
       <Content className="navbar-content">
         <Outlet />
       </Content>

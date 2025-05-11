@@ -13,10 +13,12 @@ const TransactionsPage = () => {
         <h1 className="page_hd">Transaction Overview</h1>
       </div>
       <Card className="inner-container">
+        {/* Month selector */}
         <DateSelector
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
         />
+        {/* Transactions Component */}
         <TransactionsComponent
           month={currentDate.getMonth()}
           year={currentDate.getFullYear()}

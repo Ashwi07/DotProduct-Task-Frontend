@@ -39,7 +39,7 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
   useEffect(() => {
     (async () => {
       try {
-        const response = await GetSubTypes();
+        const response = await GetSubTypes(); // Get all sub categories mappped to their categories
         setCategories(response.data.data);
       } catch (err: any) {
         if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
@@ -55,8 +55,9 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
         }
       }
     })();
-  }, [reload]);
+  }, [reload]); // refresh page as needed
 
+  // set initial values if edit option is clicked
   useEffect(() => {
     if (open) {
       form.setFieldsValue(
@@ -78,7 +79,9 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
   }, [open, initialValues, form]);
 
   const handleSubmitClick = () => {
+    // validate current values
     form.validateFields().then(async (values) => {
+      // check if amount is a number
       if (isNaN(parseInt(values.amount)) || !/^\d+$/.test(values.amount)) {
         notification.error({
           message: "Error",
@@ -88,6 +91,7 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
         return;
       }
 
+      // if edit option was selected then call edit api otherwise call add api
       try {
         if (initialValues?._id) {
           await EditTransaction(initialValues._id, {
@@ -108,6 +112,8 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
             transactionDate: values.transactionDate.format("YYYY-MM-DD"),
           });
         }
+
+        // refresh data and close modal
         setReload((current) => !current);
         hanldeModalClose();
       } catch (err: any) {
@@ -128,6 +134,7 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
     });
   };
 
+  // reset fields when modal is closed
   const hanldeModalClose = () => {
     form.resetFields();
     onCancel();
@@ -143,6 +150,7 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
       onCancel={hanldeModalClose}
     >
       <Form form={form} layout="vertical">
+        {/* Name input */}
         <div className="transaction-input-row">
           <FloatingLableInput
             name="name"
@@ -150,9 +158,13 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
             label="Name"
           />
         </div>
+
+        {/* Description(optional) input */}
         <div className="transaction-input-row">
           <FloatingLableInput name="description" label="Description" />
         </div>
+
+        {/* Category input - fixed list */}
         <div className="transaction-input-row">
           <Form.Item
             name="category"
@@ -162,7 +174,7 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
             <Select
               placeholder="Select a category"
               className="select-field"
-              onChange={() => form.setFieldValue("subType", undefined)}
+              onChange={() => form.setFieldValue("subType", undefined)} // reset sub category if category is changed
             >
               <Option key={"1"} value="Income">
                 Income
@@ -176,6 +188,8 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
             </Select>
           </Form.Item>
         </div>
+
+        {/* Sub category input */}
         <div className="transaction-input-row">
           <Form.Item
             name="subType"
@@ -187,9 +201,11 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
             <Select
               placeholder="Select a sub category"
               className="select-field"
-              disabled={!categoryValue}
+              disabled={!categoryValue} // disabled if no category is selected
             >
-              {(["Income", "Expense", "Savings"].includes(categoryValue)
+              {(["Income", "Expense", "Savings"].includes(
+                categoryValue
+              ) /* dynamic mapping as per the selected category */
                 ? categories[categoryValue as ICategoryType]
                 : []
               ).map((item) => (
@@ -200,6 +216,8 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
             </Select>
           </Form.Item>
         </div>
+
+        {/* Amount input */}
         <div className="transaction-input-row">
           <FloatingLableInput
             name="amount"
@@ -207,6 +225,8 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
             label="Amount"
           />
         </div>
+
+        {/* Transaction date input */}
         <div className="transaction-input-row">
           <Form.Item
             name="transactionDate"
@@ -216,7 +236,7 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
           >
             <DatePicker
               style={{ width: "100%", height: "45px" }}
-              format={"YYYY-MM-DD"}
+              format={"YYYY-MM-DD"} // api date format
               placeholder="Select Date"
             />
           </Form.Item>

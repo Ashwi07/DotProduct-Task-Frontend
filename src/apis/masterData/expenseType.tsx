@@ -2,6 +2,7 @@ import axios from "axios";
 import config from "../../config/config";
 import Cookies from "js-cookie";
 
+// Add Expense sub category
 export const CreateMasterExpenseType = async (name: string) => {
   const token = Cookies.get("token");
   return await axios.post(
@@ -17,6 +18,7 @@ export const CreateMasterExpenseType = async (name: string) => {
   );
 };
 
+// Edit Expense sub category
 export const EditMasterExpenseType = async (id: string, name: string) => {
   const token = Cookies.get("token");
   return await axios.put(
@@ -32,6 +34,7 @@ export const EditMasterExpenseType = async (id: string, name: string) => {
   );
 };
 
+// Delete Expense sub category
 export const DeleteMasterExpenseType = async (id: string) => {
   const token = Cookies.get("token");
   return await axios.delete(`${config.apiUrl}/api/master-expense-type/${id}`, {

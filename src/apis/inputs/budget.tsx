@@ -2,6 +2,7 @@ import axios from "axios";
 import config from "../../config/config";
 import Cookies from "js-cookie";
 
+// Get Budget list
 export const GetBudgetData = async (
   month: number,
   year: number,
@@ -20,6 +21,7 @@ export const GetBudgetData = async (
   );
 };
 
+// Get Categories that are not already used in the budget
 export const GetBudgetCategoriesData = async (month: number, year: number) => {
   const token = Cookies.get("token");
   return await axios.get(
@@ -32,6 +34,7 @@ export const GetBudgetCategoriesData = async (month: number, year: number) => {
   );
 };
 
+// Add a budget item
 export const CreateBudget = async (payload: {
   category: string;
   description?: string;
@@ -47,6 +50,7 @@ export const CreateBudget = async (payload: {
   });
 };
 
+// Edit a budget item
 export const EditBudget = async (
   id: string,
   payload: {
@@ -63,6 +67,7 @@ export const EditBudget = async (
   });
 };
 
+// Delete a budget itemi
 export const DeleteBudget = async (id: string) => {
   const token = Cookies.get("token");
   return await axios.delete(`${config.apiUrl}/api/budget/${id}`, {

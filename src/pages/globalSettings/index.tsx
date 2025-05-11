@@ -64,7 +64,7 @@ const GlobalSettingsPage = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await GetAllMasterData();
+        const response = await GetAllMasterData(); // get all expense data at once
         setExpenseData(response.data.data.expenseTypes);
         setIncomeData(response.data.data.incomeTypes);
         setSavingsData(response.data.data.savingsTypes);
@@ -83,8 +83,9 @@ const GlobalSettingsPage = () => {
         }
       }
     })();
-  }, [reload]);
+  }, [reload]); // refresh as needed
 
+  // Expense funtions start
   const handleCancelExpenseModal = () => {
     setName("");
     setSelectedItem("");
@@ -162,6 +163,7 @@ const GlobalSettingsPage = () => {
     }
   };
 
+  // Income funtions start
   const handleCancelIncomeModal = () => {
     setName("");
     setSelectedItem("");
@@ -239,6 +241,7 @@ const GlobalSettingsPage = () => {
     }
   };
 
+  // Savings funtions start
   const handleCancelSavingsModal = () => {
     setName("");
     setSelectedItem("");
@@ -316,6 +319,7 @@ const GlobalSettingsPage = () => {
     }
   };
 
+  // Rewards funtions start
   const handleCancelRewardModal = () => {
     setName("");
     setSelectedItem("");
@@ -405,9 +409,12 @@ const GlobalSettingsPage = () => {
 
   return (
     <div className="page-container">
+      {/* Heading */}
       <div className="header-container">
         <h1 className="page_hd">Global Settings</h1>
       </div>
+
+      {/* Container */}
       <Card
         sx={{
           padding: 0,
@@ -416,7 +423,9 @@ const GlobalSettingsPage = () => {
         }}
       >
         <CardContent sx={{ padding: 0 }}>
+          {/* Master data column divition */}
           <Grid container spacing={1}>
+            {/* master data column */}
             <Grid size={3} className="category-container">
               <Grid
                 className="v-align"
@@ -424,6 +433,7 @@ const GlobalSettingsPage = () => {
                 container
                 spacing={2}
               >
+                {/* Category header */}
                 <Grid size={12} sx={{ pl: 0, display: "block" }}>
                   <div
                     className="mainhd d-flex"
@@ -447,6 +457,8 @@ const GlobalSettingsPage = () => {
                     </IconButton>
                   </div>
                 </Grid>
+
+                {/* Category Data */}
                 <div className="v-scroll">
                   {expenseData.map((item) => (
                     <Stack
@@ -481,6 +493,7 @@ const GlobalSettingsPage = () => {
                 </div>
               </Grid>
             </Grid>
+            {/* master data column */}
             <Grid size={3} className="category-container">
               <Grid
                 className="v-align"
@@ -488,6 +501,7 @@ const GlobalSettingsPage = () => {
                 container
                 spacing={2}
               >
+                {/* Category header */}
                 <Grid size={12} sx={{ pl: 0, display: "block" }}>
                   <div
                     className="mainhd d-flex"
@@ -511,6 +525,8 @@ const GlobalSettingsPage = () => {
                     </IconButton>
                   </div>
                 </Grid>
+
+                {/* Category data */}
                 <div className="v-scroll">
                   {incomeData?.map((item) => (
                     <Stack
@@ -545,6 +561,7 @@ const GlobalSettingsPage = () => {
                 </div>
               </Grid>
             </Grid>
+            {/* master data column */}
             <Grid size={3} className="category-container">
               <Grid
                 className="v-align"
@@ -552,6 +569,7 @@ const GlobalSettingsPage = () => {
                 container
                 spacing={2}
               >
+                {/* Category header */}
                 <Grid size={12} sx={{ pl: 0, display: "block" }}>
                   <div
                     className="mainhd d-flex"
@@ -575,6 +593,8 @@ const GlobalSettingsPage = () => {
                     </IconButton>
                   </div>
                 </Grid>
+
+                {/* Category Data */}
                 <div className="v-scroll">
                   {savingsData?.map((item) => (
                     <Stack
@@ -609,6 +629,7 @@ const GlobalSettingsPage = () => {
                 </div>
               </Grid>
             </Grid>
+            {/* master data column */}
             <Grid size={3}>
               <Grid
                 className="v-align"
@@ -616,6 +637,7 @@ const GlobalSettingsPage = () => {
                 container
                 spacing={2}
               >
+                {/* Category header */}
                 <Grid size={12} sx={{ pl: 0, display: "block" }}>
                   <div
                     className="mainhd d-flex"
@@ -639,6 +661,8 @@ const GlobalSettingsPage = () => {
                     </IconButton>
                   </div>
                 </Grid>
+
+                {/* Category Data */}
                 <div className="v-scroll">
                   {rewardData?.map((item) => (
                     <Stack
@@ -682,6 +706,8 @@ const GlobalSettingsPage = () => {
           </Grid>
         </CardContent>
       </Card>
+
+      {/* Expense Modals */}
       <AddEditSingeInputModal
         title={
           openExpenseModal === "Add"
@@ -702,6 +728,8 @@ const GlobalSettingsPage = () => {
         onOk={handleDeleteExpenseOk}
         onCancel={handleCancelDeleteExpenseModal}
       />
+
+      {/* Income Modals */}
       <AddEditSingeInputModal
         title={
           openIncomeModal === "Add"
@@ -722,11 +750,13 @@ const GlobalSettingsPage = () => {
         onOk={handleDeleteIncomeOk}
         onCancel={handleCancelDeleteIncomeModal}
       />
+
+      {/* Savings Modals */}
       <AddEditSingeInputModal
         title={
           openSavingsModal === "Add"
-            ? "Add Expense Category"
-            : "Edit Expense Category"
+            ? "Add Savings Category"
+            : "Edit Savings Category"
         }
         label="Savings Name"
         open={Boolean(openSavingsModal)}
@@ -742,6 +772,8 @@ const GlobalSettingsPage = () => {
         onOk={handleDeleteSavingsOk}
         onCancel={handleCancelDeleteSavingsModal}
       />
+
+      {/* Rewards Modals */}
       <AddEditRewardModal
         title={
           openRewardModal === "Add"

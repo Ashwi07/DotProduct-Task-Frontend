@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "../../utils/auth";
-import "./index.css"
+import "./index.css";
 
 const NotFoundPage = () => {
   return (
@@ -10,6 +10,7 @@ const NotFoundPage = () => {
       <p className="not-found-message">
         We can't find the page you are looking for
       </p>
+      {/* If authenticated go to dashborad otherwise go to login page */}
       <Link
         to={isAuthenticated() ? "/dashboard" : "/"}
         className="not-found-button"

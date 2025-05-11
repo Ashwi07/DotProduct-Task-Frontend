@@ -19,7 +19,7 @@ const LoginPage = () => {
         message: "Login Success",
         description: `Welcome ${response.data.data.name}`,
       });
-      navigate("/dashboard");
+      navigate("/dashboard"); // on success go to dashboard page
     } catch (err: any) {
       if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
         notification.error({
@@ -38,8 +38,11 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <div className="login-card">
+        {/* Login form */}
         <Form name="login" onFinish={handleOnFinish} className="login-form">
           <h2 className="login-title">Login</h2>
+
+          {/* Email input */}
           <div className="input-container">
             <FloatingLableInput
               name="username"
@@ -50,13 +53,15 @@ const LoginPage = () => {
               label="Username"
             />
           </div>
+
+          {/* Password input */}
           <div className="input-container">
-          <FloatingLableInput
-            name="password"
-            rules={[{ required: true, message: "Password is required" }]}
-            label="Password"
-            isPassword={true}
-          />
+            <FloatingLableInput
+              name="password"
+              rules={[{ required: true, message: "Password is required" }]}
+              label="Password"
+              isPassword={true}
+            />
           </div>
           <Form.Item>
             <Button type="primary" htmlType="submit" className="login-button">

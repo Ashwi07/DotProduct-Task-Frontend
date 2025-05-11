@@ -18,12 +18,14 @@ const FloatingLableInput: React.FC<FloatingLableInputProps> = ({
   const form = Form.useFormInstance();
   const value = Form.useWatch(name, form);
 
+  // custom input with floating label to be passed into a form
   return (
     <Form.Item name={name} rules={rules} className="form-item-float">
       <div className="float-label-wrapper">
+        {/* if password field then hide text */}
         {isPassword ? (
           <Input.Password
-            onFocus={() => setFocused(true)}
+            onFocus={() => setFocused(true)} /* label control */
             onBlur={() => setFocused(false)}
             value={value}
             style={{ height: "3rem" }}
@@ -36,6 +38,8 @@ const FloatingLableInput: React.FC<FloatingLableInputProps> = ({
             style={{ height: "3rem" }}
           />
         )}
+
+        {/* label display and display adjistment */}
         <label className={focused || value ? "active" : ""}>{label}</label>
       </div>
     </Form.Item>

@@ -13,7 +13,7 @@ const InputsPage = () => {
         <h1 className="page_hd">Budget Overview</h1>
       </div>
       <Card className="inner-container">
-      {/* Month selector */}
+        {/* Month selector */}
         <DateSelector
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}

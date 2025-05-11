@@ -138,7 +138,6 @@ const Budget: React.FC<IBudgetParams> = ({ month, year }) => {
 
         return (
           <Dropdown menu={{ items: actionsMenu }} trigger={["click"]}>
-            {" "}
             {/* Dropdown Menu button */}
             <Button
               shape="circle"

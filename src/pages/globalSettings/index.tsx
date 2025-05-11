@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import type {
   IMasterExpenseItem,
   IMasterIncomeItem,
-  IMasterRewardItem,
   IMasterSavingsItem,
 } from "../../dtos/masterData";
 import { GetAllMasterData } from "../../apis/masterData";
@@ -27,11 +26,6 @@ import {
 } from "../../apis/masterData/expenseType";
 import DeleteModal from "../../components/masterData/DeleteModal";
 import {
-  CreateMasterReward,
-  DeleteMasterReward,
-  EditMasterReward,
-} from "../../apis/masterData/reward";
-import {
   CreateMasterSavingsType,
   DeleteMasterSavingsType,
   EditMasterSavingsType,
@@ -41,24 +35,19 @@ import {
   DeleteMasterIncomeType,
   EditMasterIncomeType,
 } from "../../apis/masterData/incomeType";
-import AddEditRewardModal from "../../components/masterData/AddEditRewardModal";
 
 const GlobalSettingsPage = () => {
   const [expenseData, setExpenseData] = useState<IMasterExpenseItem[]>([]);
   const [incomeData, setIncomeData] = useState<IMasterIncomeItem[]>([]);
   const [savingsData, setSavingsData] = useState<IMasterSavingsItem[]>([]);
-  const [rewardData, setRewardData] = useState<IMasterRewardItem[]>([]);
   const [reload, setReload] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
-  const [selectedAmount, setSelectedAmount] = useState(0);
   const [openExpenseModal, setOpenExpenseModal] = useState("");
   const [openDeleteExpenseModal, setOpenDeleteExpenseModal] = useState(false);
   const [openIncomeModal, setOpenIncomeModal] = useState("");
   const [openDeleteIncomeModal, setOpenDeleteIncomeModal] = useState(false);
   const [openSavingsModal, setOpenSavingsModal] = useState("");
   const [openDeleteSavingsModal, setOpenDeleteSavingsModal] = useState(false);
-  const [openRewardModal, setOpenRewardModal] = useState("");
-  const [openDeleteRewardModal, setOpenDeleteRewardModal] = useState(false);
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -68,7 +57,6 @@ const GlobalSettingsPage = () => {
         setExpenseData(response.data.data.expenseTypes);
         setIncomeData(response.data.data.incomeTypes);
         setSavingsData(response.data.data.savingsTypes);
-        setRewardData(response.data.data.rewards);
       } catch (err: any) {
         if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
           notification.error({
@@ -319,94 +307,6 @@ const GlobalSettingsPage = () => {
     }
   };
 
-  // Rewards funtions start
-  const handleCancelRewardModal = () => {
-    setName("");
-    setSelectedItem("");
-    setSelectedAmount(0);
-    setOpenRewardModal("");
-  };
-
-  const handleRewardOk = async () => {
-    try {
-      if (name === "") {
-        notification.error({
-          message: "Error",
-          description: `Name Cannot be empty`,
-        });
-        return;
-      }
-
-      if (selectedAmount <= 0) {
-        notification.error({
-          message: "Error",
-          description: `Amount should be greater than 0`,
-        });
-        return;
-      }
-
-      if (openRewardModal === "Add") {
-        await CreateMasterReward(name, selectedAmount);
-      } else {
-        await EditMasterReward(selectedItem, name, selectedAmount);
-      }
-
-      setReload((current) => !current);
-      handleCancelRewardModal();
-    } catch (err: any) {
-      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
-        notification.error({
-          message: "Error",
-          description: err?.response?.data?.userMessage,
-        });
-      } else {
-        notification.error({
-          message: "Error",
-          description: `Failed to ${openRewardModal} Reward data`,
-        });
-      }
-    }
-  };
-
-  const handleEditRewardClick = (id: string, value: string, amount: number) => {
-    setSelectedItem(id);
-    setName(value);
-    setSelectedAmount(amount);
-    setOpenRewardModal("Edit");
-  };
-
-  const handleCancelDeleteRewardModal = () => {
-    setName("");
-    setSelectedItem("");
-    setOpenDeleteRewardModal(false);
-  };
-
-  const handlleDeleteRewardClick = (id: string, value: string) => {
-    setSelectedItem(id);
-    setName(value);
-    setOpenDeleteRewardModal(true);
-  };
-
-  const handleDeleteRewardOk = async () => {
-    try {
-      await DeleteMasterReward(selectedItem);
-      setReload((current) => !current);
-      handleCancelDeleteRewardModal();
-    } catch (err: any) {
-      if (err?.response?.data?.userMessage && err?.response.staus !== 500) {
-        notification.error({
-          message: "Error",
-          description: err?.response?.data?.userMessage,
-        });
-      } else {
-        notification.error({
-          message: "Error",
-          description: `Failed to Delete Reward data`,
-        });
-      }
-    }
-  };
-
   return (
     <div className="page-container">
       {/* Heading */}
@@ -426,7 +326,7 @@ const GlobalSettingsPage = () => {
           {/* Master data column divition */}
           <Grid container spacing={1}>
             {/* master data column */}
-            <Grid size={3} className="category-container">
+            <Grid size={4} className="category-container">
               <Grid
                 className="v-align"
                 sx={{ maxWidth: "100%", pl: 3, mt: 1, mr: 3 }}
@@ -494,7 +394,7 @@ const GlobalSettingsPage = () => {
               </Grid>
             </Grid>
             {/* master data column */}
-            <Grid size={3} className="category-container">
+            <Grid size={4} className="category-container">
               <Grid
                 className="v-align"
                 sx={{ maxWidth: "100%", pl: 3, mt: 1, mr: 3 }}
@@ -562,7 +462,7 @@ const GlobalSettingsPage = () => {
               </Grid>
             </Grid>
             {/* master data column */}
-            <Grid size={3} className="category-container">
+            <Grid size={4} className="category-container">
               <Grid
                 className="v-align"
                 sx={{ maxWidth: "100%", pl: 3, mt: 1, mr: 3 }}
@@ -620,80 +520,6 @@ const GlobalSettingsPage = () => {
                         className="icon-btn"
                         onClick={() =>
                           handlleDeleteSavingsClick(item._id, item.name)
-                        }
-                      >
-                        <img src={deleteIcon} />
-                      </IconButton>
-                    </Stack>
-                  ))}
-                </div>
-              </Grid>
-            </Grid>
-            {/* master data column */}
-            <Grid size={3}>
-              <Grid
-                className="v-align"
-                sx={{ maxWidth: "100%", pl: 3, mt: 1, mr: 3 }}
-                container
-                spacing={2}
-              >
-                {/* Category header */}
-                <Grid size={12} sx={{ pl: 0, display: "block" }}>
-                  <div
-                    className="mainhd d-flex"
-                    style={{
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Typography
-                      variant="caption"
-                      display="block"
-                      className="category-text"
-                      gutterBottom
-                    >
-                      Reward
-                    </Typography>
-                    <IconButton
-                      className="icon-btn"
-                      onClick={() => setOpenRewardModal("Add")}
-                    >
-                      <img src={plusIcon} />
-                    </IconButton>
-                  </div>
-                </Grid>
-
-                {/* Category Data */}
-                <div className="v-scroll">
-                  {rewardData?.map((item) => (
-                    <Stack
-                      key={item._id}
-                      sx={{ mt: 1 }}
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="flex-start"
-                      spacing={2}
-                    >
-                      <Card className="category-item">
-                        <div className="item-text">
-                          {item.name} - {item.amount}
-                        </div>
-                      </Card>
-                      <IconButton
-                        className="icon-btn"
-                        onClick={() =>
-                          handleEditRewardClick(
-                            item._id,
-                            item.name,
-                            item.amount
-                          )
-                        }
-                      >
-                        <img src={editIcon} />
-                      </IconButton>
-                      <IconButton
-                        className="icon-btn"
-                        onClick={() =>
-                          handlleDeleteRewardClick(item._id, item.name)
                         }
                       >
                         <img src={deleteIcon} />
@@ -771,29 +597,6 @@ const GlobalSettingsPage = () => {
         description={`Are you sure you want to delete "${name}"?`}
         onOk={handleDeleteSavingsOk}
         onCancel={handleCancelDeleteSavingsModal}
-      />
-
-      {/* Rewards Modals */}
-      <AddEditRewardModal
-        title={
-          openRewardModal === "Add"
-            ? "Add Reward Category"
-            : "Edit Reward Category"
-        }
-        open={Boolean(openRewardModal)}
-        value={name}
-        setValue={setName}
-        amount={selectedAmount}
-        setAmount={setSelectedAmount}
-        onCancel={handleCancelRewardModal}
-        onOk={handleRewardOk}
-      />
-      <DeleteModal
-        title="Delete Reward"
-        open={openDeleteRewardModal}
-        description={`Are you sure you want to delete "${name}"?`}
-        onOk={handleDeleteRewardOk}
-        onCancel={handleCancelDeleteRewardModal}
       />
     </div>
   );

@@ -12,9 +12,3 @@ export interface IMasterSavingsItem {
   _id: string;
   name: string;
 }
-
-export interface IMasterRewardItem {
-  _id: string;
-  name: string;
-  amount: number;
-}

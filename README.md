@@ -53,7 +53,15 @@ External Packages Used
 - axios // for api calls
 - antd // for most UI
 - mui // for some UI
+- d3 // for graphs
 
 ENV variables needed
 
 - VITE_API_URL
+
+Additional Features that can be added
+
+- CSP (contnent security policy)
+- Redis caching
+- Restoration methods for soft deleted data
+- Rewaard / Goal / Milestone

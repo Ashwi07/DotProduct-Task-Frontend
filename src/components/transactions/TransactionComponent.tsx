@@ -255,7 +255,6 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
 
         return (
           <Dropdown menu={{ items: actionsMenu }} trigger={["click"]}>
-            {" "}
             {/* Dropdown menu button */}
             <Button
               shape="circle"

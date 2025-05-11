@@ -14,9 +14,14 @@ Only one sort order is applied at a time.
 If no sort order is selected then it is displayed in the order of creation (latest first)
 Pagination is implemented with a limit of 10 items per page.
 The transaction table has an option to filter by category and sub categories. Multiple values can be selected for each type and all field filters are considered.
+Dashboard has quick stats for quick information
+Dashboard also had D3 graphs for visual insights
 After login is successful, token is stored in the cookies and used in all other api calls.
 If there is no token found then page re-routes to login page
 If an unknown url is searched then it shows Not found page
+
+LLMs were used to help with the D3 graph creation and Floating Label input
+LLMs were also used for image generation for backgrouns and icons
 
 Folder Structure
 

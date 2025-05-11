@@ -59,7 +59,7 @@ const Budget: React.FC<IBudgetParams> = ({ month, year }) => {
   };
 
   // set sorting values
-  const handleTableChange = (pagination: any, filters: any, sorter: any) => {
+  const handleTableChange = (_pagination: any, _filters: any, sorter: any) => {
     setSort(sorter.order);
   };
 

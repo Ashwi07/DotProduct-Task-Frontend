@@ -46,7 +46,7 @@ const NavbarLayout = () => {
       key: "1",
       label: "Logout",
       icon: <LogoutOutlined />,
-      onClick: () => handleLogout,
+      onClick: () => handleLogout(),
     },
   ];
 

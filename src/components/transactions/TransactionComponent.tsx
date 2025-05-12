@@ -18,8 +18,8 @@ import DeleteModal from "../masterData/DeleteModal";
 import { DeleteTransaction, GetTransactionData } from "../../apis/transactions";
 import type { ITransactionItem } from "../../dtos/transactions";
 import AddEditTransactionModal from "./AddEditTransactionModal";
-import moment from "moment";
 import { GetSubTypes } from "../../apis/masterData";
+import dayjs from "dayjs";
 
 interface ITransactionsParams {
   month: number;
@@ -222,7 +222,7 @@ const Transactions: React.FC<ITransactionsParams> = ({ month, year }) => {
       dataIndex: "transactionDate",
       key: "transactionDate",
       sorter: true, // enable sorting
-      render: (value: Date) => moment(value).format("YYYY-MM-DD"),
+      render: (value: Date) => dayjs(value).format("YYYY-MM-DD"),
     },
     {
       title: "Amount",

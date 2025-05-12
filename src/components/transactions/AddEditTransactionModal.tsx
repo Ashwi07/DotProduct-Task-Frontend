@@ -8,9 +8,9 @@ import type {
   IMasterSavingsItem,
 } from "../../dtos/masterData";
 import type { ICategoryType, ITransactionItem } from "../../dtos/transactions";
-import moment from "moment";
 import { CreateTransaction, EditTransaction } from "../../apis/transactions";
 import { GetSubTypes } from "../../apis/masterData";
+import dayjs from "dayjs";
 
 interface AddEditTransactionModalProps {
   title: string;
@@ -64,7 +64,7 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
         initialValues?._id
           ? {
               ...initialValues,
-              transactionDate: moment(initialValues.transactionDate),
+              transactionDate: dayjs(initialValues.transactionDate),
             }
           : {
               name: "",
@@ -72,7 +72,7 @@ const AddEditTransactionModal: React.FC<AddEditTransactionModalProps> = ({
               category: undefined,
               subType: undefined,
               amount: "",
-              transactionDate: moment(),
+              transactionDate: dayjs(new Date()),
             }
       );
     }

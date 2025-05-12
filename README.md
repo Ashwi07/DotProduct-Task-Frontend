@@ -56,7 +56,7 @@ External Packages Used
 
 - ESlint
 - js-cookie // for cookie management
-- moment // for date and time management
+- dayjs // for date and time management
 - axios // for api calls
 - antd // for most UI
 - mui // for some UI
